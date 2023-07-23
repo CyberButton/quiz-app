@@ -19,14 +19,14 @@ export default function Main() {
 
   return (
     <div className='container'>
-        <h1 className='title text-light'>Quiz Application</h1>
+        <h1 className='title text-light'>AI Quiz Application</h1>
 
         <ol>
-            <li>You will be asked 10 questions one after another.</li>
-            <li>10 points is awarded for the correct answer.</li>
-            <li>Each question has three options. You can choose only one options.</li>
-            <li>You can review and change answers before the quiz finish.</li>
-            <li>The result will be declared at the end of the quiz.</li>
+            <li>Log in with your Username.</li>
+            <li>Select one of your previously generated quizzes.</li>
+            <li>Or make a new AI generated quiz from your data.</li>
+            <li>Name your quiz, provide data and how many questions you want.</li>
+            <li>Good luck on taking your AI quizzes!</li>
         </ol>
 
         <form id="form">

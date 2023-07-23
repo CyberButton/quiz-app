@@ -54,14 +54,48 @@ export default function Generate() {
         return <Navigate to={{ pathname: '/quiz'}} replace={true}></Navigate>
     }
 
+    const headerStyle = {
+        //textAlign: 'left', // Align text to the most left
+        color: 'white',
+        padding: '20px',
+        margin: '0',
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+      };
+
+      const styles = {
+        container: {
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          marginBottom: '20px',
+        },
+        label: {
+          fontSize: '18px',
+          fontWeight: 'bold',
+          marginBottom: '10px',
+          color: 'white'
+        },
+        select: {
+          padding: '8px',
+          fontSize: '16px',
+          borderRadius: '5px',
+          border: '1px solid #ccc',
+          outline: 'none',
+          cursor: 'pointer',
+        },
+        selected: {
+          marginTop: '10px',
+          fontSize: '16px',
+          color: 'white'
+        },
+      };
+
     return (
 
         <div className="container">
-            <h1 className='title text-light'>Quiz Application</h1>
+            <h1 className='title text-light'>New AI Generated Quiz</h1>
 
-            <ul>
-                <li>Enter the source from wich to make new set of questions</li>
-            </ul>
+            <h2 style={headerStyle}>Provide data for AI to generate a new quiz</h2>
 
             <form id="form">
             <input ref={nameOfMCQ} className="userid" type="text" placeholder='Name your quiz*' />
@@ -71,15 +105,15 @@ export default function Generate() {
             <input ref={sourceType} className="userid" type="text" placeholder='Source type*' />
             </form>
 
-            <div>
-            <label>Select a number:</label>
-            <select value={selectedNumber} onChange={handleDropdownChange}>
+            <div style={styles.container}>
+            <label style={styles.label}>How many questions do you want?</label>
+            <select value={selectedNumber} onChange={handleDropdownChange} style={styles.select}>
                 <option value="">Choose a number</option>
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
             </select>
-            {selectedNumber && <p>You selected: {selectedNumber}</p>}
+            {selectedNumber && <p style={styles.selected}>You selected: {selectedNumber}</p>}
             </div>
 
             <form id="form">

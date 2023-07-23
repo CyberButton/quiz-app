@@ -24,7 +24,7 @@ export default function Select() {
           };
       
           fetchData();
-        }, [serverData]);
+        }, []);
         
         function onNewClick() {
             console.log("click new quiz")
@@ -56,7 +56,7 @@ export default function Select() {
 
     return(
         <div className="container">
-            <h1 className='title text-light'>Quiz Application</h1>
+            <h1 className='title text-light'>Select Quiz/Generate New Quiz</h1>
 
             <div className='start'>
                 <button className='btn' onClick={onNewClick}>Start New Quiz</button>

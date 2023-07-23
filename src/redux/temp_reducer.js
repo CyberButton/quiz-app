@@ -12,9 +12,14 @@ export const tempReducer = createSlice({
             state.IDOFMCQ = action.payload
             // console.log(state.IDOFMCQ)
         },
+        resetIDOFMCQ : () => {
+            return {
+                IDOFMCQ : {}
+            }
+        }
     }
 })
 
-export const { setIDOFMCQ } = tempReducer.actions;
+export const { setIDOFMCQ, resetIDOFMCQ } = tempReducer.actions;
 
 export default tempReducer.reducer;

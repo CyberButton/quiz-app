@@ -18,6 +18,7 @@ export default function Quiz() {
     const [check, setChecked] = useState(undefined)
 
     const result = useSelector(state => state.result.result);
+    const nameOfMCQ = useSelector(state => state.result.nameOfMCQ);
     const { queue, trace } = useSelector(state => state.questions);
     const dispatch = useDispatch()
 
@@ -57,7 +58,7 @@ export default function Quiz() {
 
   return (
     <div className='container'>
-        <h1 className='title text-light'>Quiz Application</h1>
+        <h1 className='title text-light'>{nameOfMCQ}</h1>
 
         {/* display questions */}
         <Questions onChecked={onChecked}/>
