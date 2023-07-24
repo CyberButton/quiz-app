@@ -18,31 +18,21 @@ export default function Result() {
     const dispatch = useDispatch()
     const { questions : { queue ,answers}, result : { result, userId, nameOfMCQ}}  = useSelector(state => state)
 
-    // useEffect(() => {
-    //     console.log(flag)
-    // })
-
     const totalPoints = queue.length; 
     const attempts = attempts_Number(result);
     const earnPoints = earnPoints_Number(result, answers, 1)
     const flag = flagResult(totalPoints, earnPoints)
 
-    // console.log({result, 
-    //     username : userId, 
-    //     attempts, 
-    //     points: earnPoints, 
-    //     achived: flag ? "Passed" : "Failed"})
-
     //useEffect(() => {
-        PublishResults({
-            results : result, 
-            username : userId, 
-            attempts, 
-            correct: earnPoints, 
-            achived: flag ? "Passed" : "Failed",
-            nameOfMCQ: nameOfMCQ
-        })
-        console.log(nameOfMCQ)
+        // PublishResults({
+        //     results : result, 
+        //     username : userId, 
+        //     attempts, 
+        //     correct: earnPoints, 
+        //     achived: flag ? "Passed" : "Failed",
+        //     nameOfMCQ: nameOfMCQ
+        // })
+        // console.log(nameOfMCQ)
     //}, [])
 
     function onRestart(){

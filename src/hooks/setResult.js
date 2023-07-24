@@ -16,6 +16,7 @@ export const updateResult = (index) => async (dispatch) => {
     }
 }
 
+// to delete
 export const PublishResults = async (resultData) => {
     const {result, username} = resultData;
     try {

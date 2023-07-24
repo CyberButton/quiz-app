@@ -5,41 +5,42 @@ import { useSelector } from 'react-redux';
 export default function ResultTable() {
 
     const [data, setData] = useState([]);
-    const userId = useSelector(state => state.result.userId)
+    const { userId, result } = useSelector(state => state.result)
+    const questions = useSelector(state => state.temp.IDOFMCQ).questions
+    // correct answers
+    const answers = useSelector(state => state.questions.answers)
 
-    useEffect(() => {
-      const delay = setTimeout(() => {
-        getServerData(`${process.env.REACT_APP_SERVER_HOSTNAME}/api/results`, (res) => {
-          setData(res);
-        });
-      }, 1000);
+    console.log(questions)
+
+    // useEffect(() => {
+    //   const delay = setTimeout(() => {
+    //     getServerData(`${process.env.REACT_APP_SERVER_HOSTNAME}/api/results`, (res) => {
+    //       setData(res);
+    //     });
+    //   }, 1000);
     
-      return () => clearTimeout(delay); // Cleanup function to clear the timeout on unmounting
-    }, []);
+    //   return () => clearTimeout(delay); // Cleanup function to clear the timeout on unmounting
+    // }, []);
     
-    console.log(data)
-    //console.log(data)
+    // console.log(data)
 
   return (
     <div>
         <table>
             <thead className='table-header'>
                 <tr className='table-row'>
-                    <td>Attempted Questions</td>
+                    <td>Questions</td>
                     <td>Correct Answers</td>
-                    <td>Result</td>
+                    <td>Submitted Answer</td>
                 </tr>
             </thead>
             <tbody>
-                { !data ?? <div>NO DATA FOUND</div>}
-                { 
-                data
-                .filter((v) => v.username === userId) // Filter the data by the specific username
+                { questions
                 .map((v, i) => (
                 <tr className='table-body' key={i}>
-                <td>{v.attempts || 0}</td>
-                <td>{v.correct || 0}</td>
-                <td>{v.achived || ""}</td>
+                <td><strong>{v.question}</strong></td>
+                <td>{v.options[Number(answers[i])]}</td>
+                <td style={{ color : `${v.options[Number(answers[i])] === v.options[Number(result[i])] ? "green" : "#ff2a66" }` }}>{v.options[Number(result[i])] || "--"}</td>
             </tr>
                 ))}
                 
