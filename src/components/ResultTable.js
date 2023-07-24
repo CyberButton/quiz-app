@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { getServerData } from '../helper/helper'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 
 export default function ResultTable() {
-
-    const [data, setData] = useState([]);
-    const { userId, result } = useSelector(state => state.result)
+  
+    const { result } = useSelector(state => state.result)
     const questions = useSelector(state => state.temp.IDOFMCQ).questions
     // correct answers
     const answers = useSelector(state => state.questions.answers)
