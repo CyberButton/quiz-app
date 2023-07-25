@@ -13,8 +13,10 @@ export default function Questions({ onChecked }) {
     const [checked, setChecked] = useState(undefined)
     const { trace } = useSelector(state => state.questions);
     const result = useSelector(state => state.result.result);
-    const [isLoading, setIsLoading] = useState(false);
-    const { serverError } = useFetchQuestion(setIsLoading)
+    const [isLoading, setIsLoading] = useState(true);
+    const [serverError, setServerError] = useState(null)
+    
+    useFetchQuestion(isLoading, setIsLoading, serverError, setServerError)
 
     const questions = useSelector(state => state.questions.queue[state.questions.trace])
     const dispatch = useDispatch()
@@ -29,9 +31,12 @@ export default function Questions({ onChecked }) {
         dispatch(updateResult({ trace, checked}))
     }
 
+    console.log(isLoading)
+    console.log(serverError)
+
 
     if(isLoading) return <h3 className='text-light'>isLoading</h3>
-    if(serverError) return <h3 className='text-light'>{serverError.toString() || "Unknown Error"}</h3>
+    if(serverError) return <h3 className='text-light'>{"Something went wrong while making your ai quiz, please RELOAD the page and try again"}</h3>
 
   return (
     <div className='questions'>

@@ -39,5 +39,16 @@ export async function postServerData(url, result, callback) {
     }
   }
   
+  export async function deleteServerData(url, callback) {
+    try {
+      const response = await axios.delete(url);
+      const data = response.data;
+      console.log(data);
+      return callback ? callback(data) : data;
+    } catch (error) {
+      console.error('Error in deleteServerData:', error);
+      return null; // Return a default value or handle the error in your component
+    }
+  }
 
 //getServerData('http://localhost:5000/api/results')

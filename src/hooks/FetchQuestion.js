@@ -7,31 +7,39 @@ import * as Action from '../redux/question_reducer'
 import { setNameOfMCQ } from "../redux/result_reducer";
 
 /** fetch question hook to fetch api data and set value to store */
-export const useFetchQuestion = (setIsLoading) => {
-    const dispatch = useDispatch();   
-    const [getData, setGetData] = useState({serverError: null});    
-    
+export const useFetchQuestion = (isLoading, setIsLoading, serverError, setServerError) => {
+    const dispatch = useDispatch();     
+
     const IDOFMCQ = useSelector(state => state.temp.IDOFMCQ)
+
+    console.log(isLoading)
 
     useEffect(() => {
         setIsLoading(true)
+        console.log("1")
+        console.log(isLoading)
 
         /** async function fetch backend data */
         const fetch = async () => {
             try {
                 setIsLoading(true)
+                console.log(isLoading)
+                
                 //let question = await data;
                 //const serverData = await getServerData(`${process.env.REACT_APP_SERVER_HOSTNAME}/api/questions`, (data) => data)
                 
                 //const amir = serverData.find((item) => item._id === IDOFMCQ._id)
                 
-                console.log("1")
+                console.log("2")
 
                 const { questions, answers, nameOfMCQ } = IDOFMCQ
                 console.log('questions', questions)
 
                 if(questions.length){
                     setIsLoading(false);
+                    console.log(isLoading)
+                    console.log("3")
+
                     dispatch(setNameOfMCQ(nameOfMCQ))
                     /** dispatch an action */
                     dispatch(Action.startExamAction({question : questions, answers}))
@@ -39,13 +47,17 @@ export const useFetchQuestion = (setIsLoading) => {
 
             } catch (error) {
                 setIsLoading(false);
-                setGetData(prev => ({...prev, serverError : error}));
+                console.log(isLoading)
+                console.log("4")
+                console.log(error)
+                setServerError(error)
+                console.log(serverError)
             }
         }
         fetch();
     }, [dispatch, setIsLoading, IDOFMCQ]);
 
-    return [getData, setGetData];
+    return [];
 }
 
 

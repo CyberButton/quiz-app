@@ -3,6 +3,10 @@ import { Navigate } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
 import { getServerData } from '../helper/helper'
 import { setIDOFMCQ } from '../redux/temp_reducer'
+import { deleteQuestion } from '../hooks/deleteQuestions'
+import { resetAllAction } from '../redux/question_reducer';
+import { resetResultActionExceptName } from '../redux/result_reducer'
+import { resetIDOFMCQ } from '../redux/temp_reducer'
 
 
 export default function Select() {
@@ -12,22 +16,25 @@ export default function Select() {
     const dispatch = useDispatch();
     const userId = useSelector(state => state.result.userId)  
           
-        useEffect(() => {
-          const fetchData = async () => {
-            try {
-              const data = await getServerData(`${process.env.REACT_APP_SERVER_HOSTNAME}/api/questions`);
-              setServerData(data);
-              console.log(serverData)
-            } catch (error) {
-              console.error(error);
-            }
-          };
-      
+    const fetchData = async () => {
+      try {
+        const data = await getServerData(`${process.env.REACT_APP_SERVER_HOSTNAME}/api/questions`);
+        setServerData(data);
+        console.log(serverData)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+        useEffect(() => {   
           fetchData();
         }, []);
         
         function onNewClick() {
             console.log("click new quiz")
+            dispatch(resetAllAction())
+            dispatch(resetResultActionExceptName())
+            dispatch(resetIDOFMCQ())
             setGo(2);
         }
     
@@ -54,59 +61,118 @@ export default function Select() {
             boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
           };
 
-    return(
-        <div className="container">
-            <h1 className='title text-light'>Select Quiz/Generate New Quiz</h1>
+          
+      // Function to delete a quiz by its ID
+  const handleDeleteQuiz = (quizId) => {
+    const confirmed = window.confirm('Are you sure you want to delete this quiz?');
+    if (confirmed) {
+      try {
+        console.log(quizId)
+        // Make the DELETE request to the server
+        deleteQuestion(quizId)
+        fetchData(); // Refresh the data after deletion
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
-            <div className='start'>
-                <button className='btn' onClick={onNewClick}>Start New Quiz</button>
-            </div>
+//     return(
+//         <div className="container">
+//             <h1 className='title text-light'>Select Quiz/Generate New Quiz</h1>
 
-            {/* <div className='start'>
-                <Link className='btn' to={'quiz'} onClick={console.log("click")}>Start Old Quiz</Link>
-            </div> */}
-
-        {/* <ol>
-          {serverData.map((item) => (
-            <li key={item._id}>
-              <a href="#" onClick={() => handleQuestionClick(item)}>{item.nameOfMCQ}</a>
-            </li>
-          ))}
-        </ol> */}
+//             <div className='start'>
+//                 <button className='btn' onClick={onNewClick}>Start New Quiz</button>
+//             </div>
         
-        <h2 style={headerStyle}>List of Questions</h2>
+//         <h2 style={headerStyle}>List of Questions</h2>
         
 
-        <table>
-  <thead className='table-header'>
+//         <table>
+//   <thead className='table-header'>
+//     <tr className='table-row'>
+//       <td>quiz name</td>
+//       <td>number of questions</td>
+//     </tr>
+//   </thead>
+//   <tbody>
+//     {serverData.length === 0 ? (
+//       <tr className='table-body'>
+//         <td colSpan="2">NO DATA FOUND</td>
+//       </tr>
+//     ) : (
+//       serverData
+//         .filter((v) => v.userID === userId)
+//         .map((v, i) => (
+//           <tr className='table-body' key={i}>
+//             <td>
+//               <a href="#" onClick={() => handleQuestionClick(v)}>
+//                 {v.nameOfMCQ}
+//               </a>
+//             </td>
+//             <td>{v.numberOfMCQ || 0}</td>
+//           </tr>
+//         ))
+//     )}
+//   </tbody>
+// </table>
+
+
+//         </div>
+//     )
+
+
+
+
+
+return (
+  <div className="container">
+    <h1 className='title text-light'>Select Quiz/Generate New Quiz</h1>
+
+<div className='start'>
+    <button className='btn' onClick={onNewClick}>Start New Quiz</button>
+</div>
+
+<h2 style={headerStyle}>List of Questions</h2>
+
+    <table>
+    <thead className='table-header'>
     <tr className='table-row'>
       <td>quiz name</td>
       <td>number of questions</td>
+      <td>Delete</td>
     </tr>
   </thead>
-  <tbody>
-    {serverData.length === 0 ? (
-      <tr className='table-body'>
-        <td colSpan="2">NO DATA FOUND</td>
-      </tr>
-    ) : (
-      serverData
-        .filter((v) => v.userID === userId)
-        .map((v, i) => (
-          <tr className='table-body' key={i}>
-            <td>
-              <a href="#" onClick={() => handleQuestionClick(v)}>
-                {v.nameOfMCQ}
-              </a>
-            </td>
-            <td>{v.numberOfMCQ || 0}</td>
+      <tbody>
+        {serverData.length === 0 ? (
+          <tr className='table-body'>
+            <td colSpan="2">NO DATA FOUND</td>
           </tr>
-        ))
-    )}
-  </tbody>
-</table>
+        ) : (
+          serverData
+            .filter((v) => v.userID === userId)
+            .map((v, i) => (
+              <tr className='table-body' key={i}>
+                <td>
+                  <a href="#" onClick={() => handleQuestionClick(v)}>
+                    {v.nameOfMCQ}
+                  </a>
+                </td>
+                <td>{v.numberOfMCQ || 0}</td>
+                {/* Add the delete button */}
+                <td>
+                  <button onClick={() => handleDeleteQuiz(v._id)}>X</button>
+                </td>
+              </tr>
+            ))
+        )}
+      </tbody>
+    </table>
+  </div>
+);
 
 
-        </div>
-    )
+
+
+
 }

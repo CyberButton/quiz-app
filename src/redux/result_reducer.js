@@ -27,10 +27,16 @@ export const resultReducer = createSlice({
                 result : [],
                 nameOfMCQ : null
             }
+        },
+        resetResultActionExceptName : (state) => {
+            return {
+                ...state,
+                nameOfMCQ : null
+            }
         }
     }
 })
 
-export const { setUserId, pushResultAction, resetResultAction, updateResultAction, setNameOfMCQ } = resultReducer.actions;
+export const { setUserId, pushResultAction, resetResultAction, updateResultAction, setNameOfMCQ, resetResultActionExceptName } = resultReducer.actions;
 
 export default resultReducer.reducer;
