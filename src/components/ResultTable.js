@@ -29,7 +29,7 @@ export default function ResultTable() {
                 <tr className='table-row'>
                     <td>Questions</td>
                     <td>Correct Answers</td>
-                    <td>Submitted Answer</td>
+                    <td>Submitted Answers</td>
                 </tr>
             </thead>
             <tbody>
