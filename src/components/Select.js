@@ -70,7 +70,12 @@ export default function Select() {
         console.log(quizId)
         // Make the DELETE request to the server
         deleteQuestion(quizId)
-        fetchData(); // Refresh the data after deletion
+        
+      // Wait for 1 second before refreshing the data
+      setTimeout(() => {
+        fetchData();
+      }, 1000); // 1000 milliseconds = 1 second
+
       } catch (error) {
         console.error(error);
       }
@@ -130,7 +135,7 @@ return (
     <h1 className='title text-light'>Select Quiz/Generate New Quiz</h1>
 
 <div className='start'>
-    <button className='btn' onClick={onNewClick}>Start New Quiz</button>
+    <button className='btn' onClick={onNewClick}>Generate New Quiz</button>
 </div>
 
 <h2 style={headerStyle}>List of Questions</h2>
