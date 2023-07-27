@@ -10,8 +10,10 @@ import { attempts_Number, earnPoints_Number, flagResult } from '../helper/helper
 import { resetAllAction } from '../redux/question_reducer';
 import { resetResultAction } from '../redux/result_reducer';
 import { resetIDOFMCQ } from '../redux/temp_reducer'
-import { PublishResults } from '../hooks/setResult';
+import { generatePDF } from '../hooks/generatePDFs';
 
+/**pdf */
+import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
 export default function Result() {
 
@@ -39,8 +41,83 @@ export default function Result() {
         dispatch(resetAllAction())
         dispatch(resetResultAction())
         dispatch(resetIDOFMCQ())
-        
     }
+
+    const styles = StyleSheet.create({
+        page: {
+          padding: 40,
+        },
+        header: {
+          fontSize: 20,
+          textAlign: 'center',
+          marginBottom: 20,
+        },
+        questionContainer: {
+          marginBottom: 20,
+        },
+        question: {
+          fontSize: 15,
+          fontWeight: 'bold',
+          marginBottom: 10,
+        },
+        option: {
+          fontSize: 12,
+          marginBottom: 5,
+        },
+        correctAnswersContainer: {
+          marginTop: 40,
+        },
+        correctAnswersTitle: {
+          fontSize: 16,
+          fontWeight: 'bold',
+          marginBottom: 10,
+        },
+        correctAnswer: {
+          fontSize: 12,
+          marginBottom: 5,
+        },
+      });
+      
+      const PdfDocument = () => {
+        const optionLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      
+        return (
+          <Document>
+            <Page style={styles.page}>
+              <View style={styles.header}>
+                <Text>{nameOfMCQ}</Text>
+              </View>
+      
+              {queue.map((question, index) => (
+                <View key={index} style={styles.questionContainer}>
+                  <Text style={styles.question}>{`${index + 1}. ${question.question}`}</Text>
+                  {question.options.map((option, optIndex) => (
+                    <Text key={optIndex} style={styles.option}>
+                      {`${optionLetters[optIndex]}) ${option}`}
+                    </Text>
+                  ))}
+                </View>
+              ))}
+      
+              <View style={styles.correctAnswersContainer}>
+                <Text style={styles.correctAnswersTitle}>List of Correct Answers:</Text>
+                {queue.map((question, index) => (
+                  <Text key={index} style={styles.correctAnswer}>
+                    {`${index + 1}. ${optionLetters[answers[index]]}) ${question.options[answers[index]]}`}
+                  </Text>
+                ))}
+              </View>
+            </Page>
+          </Document>
+        );
+      };
+      
+      
+
+    // function onDownload(){
+    //     const questions = queue
+    //     generatePDF({questions, answers})
+    // }
 
   return (
     <div className='container'>
@@ -71,6 +148,15 @@ export default function Result() {
 
         <div className="start">
             <Link className='btn' to={'/'} onClick={onRestart}>Restart</Link>
+
+            {/* Use PDFDownloadLink to download the PDF */}
+            <button className='btn'>
+            <PDFDownloadLink document={<PdfDocument />} fileName="AIquiz.pdf">
+            {({ blob, url, loading, error }) =>
+                loading ? 'Loading document...' : 'Download PDF'
+            }
+            </PDFDownloadLink>
+            </button>
         </div>
 
         <div className="container">

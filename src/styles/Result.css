@@ -49,3 +49,10 @@ table {
 .table-header > tr > td{
     border: 1px solid #faff5a;   
 }
+
+.btn {
+    display: block;
+    margin-left: 100px; /* Add margin between buttons (adjust as needed) */
+    margin-right: 100px; /* Add margin between buttons (adjust as needed) */
+}
+  
