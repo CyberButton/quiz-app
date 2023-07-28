@@ -3,7 +3,9 @@ import { Navigate } from 'react-router-dom';
 import '../styles/Main.css';
 import { CallGenerativeAPI } from '../hooks/generateQuestions';
 import { useSelector, useDispatch } from 'react-redux';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+
+import FROM_TEXT_end from '../images/FROM_TEXT_eng.png'
+import FROM_KEY_WORDS_eng from '../images/FROM_KEY_WORDS_eng.png'
 
 export default function Generate() {
   const userId = useSelector(state => state.result.userId);
@@ -11,7 +13,7 @@ export default function Generate() {
 
   const prompt = useRef(null);
   const [selectedNumber, setSelectedNumber] = useState('');
-  const sourceType = useRef(null);
+  const [sourceType, setSourceType] = useState('key words'); // Default value is 'key words'
   const nameOfMCQ = useRef(null);
 
   const [go, setGo] = useState(false);
@@ -22,7 +24,6 @@ export default function Generate() {
 
     if (
       prompt.current?.value &&
-      sourceType.current?.value &&
       nameOfMCQ.current?.value &&
       selectedNumber !== ''
     ) {
@@ -34,7 +35,7 @@ export default function Generate() {
       const resultData = {
         prompt: prompt.current.value,
         numberOfMCQ: selectedNumber,
-        sourceType: sourceType.current.value,
+        sourceType: sourceType,
         userID: userId,
         nameOfMCQ: nameOfMCQ.current.value,
       };
@@ -63,12 +64,19 @@ export default function Generate() {
   }
 
   const headerStyle = {
-    //textAlign: 'left', // Align text to the most left
+    textAlign: 'center', // Align text to the most left
     color: 'white',
     padding: '20px',
     margin: '0',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 1)',
   };
+
+const optionStyle = {
+  textAlign: 'center', // Align text to the most left
+  color: 'white',
+  marginLeft : '20px',
+  marginTop : '25px'
+}
 
   const styles = {
     container: {
@@ -78,9 +86,10 @@ export default function Generate() {
       marginBottom: '20px',
     },
     label: {
-      fontSize: '18px',
+      fontSize: '24px',
       fontWeight: 'bold',
       marginBottom: '10px',
+      marginTop: '30px',
       color: 'white',
     },
     select: {
@@ -97,6 +106,8 @@ export default function Generate() {
       color: 'white',
     },
   };
+
+
 
   return (
     <div className="container">
@@ -148,9 +159,9 @@ export default function Generate() {
         <input ref={nameOfMCQ} className="userid" type="text" placeholder="Name your quiz*" />
       </form>
 
-      <form id="form">
+      {/* <form id="form">
         <input ref={sourceType} className="userid" type="text" placeholder="Source type*" />
-      </form>
+      </form> */}
 
       <div style={styles.container}>
         <label style={styles.label}>How many questions do you want?</label>
@@ -163,6 +174,47 @@ export default function Generate() {
         {selectedNumber && <p style={styles.selected}>You selected: {selectedNumber}</p>}
       </div>
 
+    {/* Switch for Source Type */}
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <label style={styles.label}>Source type:</label>
+      <label style={optionStyle}>
+        <input
+          type="radio"
+          name="sourceType"
+          value="key words"
+          onChange={(e) => setSourceType(e.target.value)}
+          checked={sourceType === 'key words'}
+        />{' '}
+        Key words
+      </label>
+      <label style={optionStyle}>
+        <input
+          type="radio"
+          name="sourceType"
+          value="full text"
+          onChange={(e) => setSourceType(e.target.value)}
+          checked={sourceType === 'full text'}
+        />{' '}
+        Full text
+      </label>
+    </div>
+
+      {/* Images to illustrate each method */}
+      <div style={{ display: 'flex' }}>
+        {/* Display the Key Words image if 'key words' is selected */}
+        {sourceType === 'key words' && (
+          <div style={{ maxWidth: '70vw', maxHeight: '70vh' }}>
+            <img src={FROM_KEY_WORDS_eng} alt="Key Words Example" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+          </div>
+        )}
+        {/* Display the Full Text image if 'full text' is selected */}
+        {sourceType === 'full text' && (
+          <div style={{ maxWidth: '70vw', maxHeight: '70vh' }}>
+            <img src={FROM_TEXT_end} alt="Full Text Example" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+          </div>
+        )}
+      </div>
+    
       <form id="form">
         <input ref={prompt} className="userid" type="text" placeholder="Source to make quiestions go here*" />
       </form>

@@ -24,8 +24,8 @@ export default function Main() {
         <ol>
             <li>Log in with your Username.</li>
             <li>Select one of your previously generated quizzes.</li>
-            <li>Or make a new AI generated quiz from your data.</li>
-            <li>Name your quiz, provide data and how many questions you want.</li>
+            <li>Or make a new AI generated quiz.</li>
+            <li>Name your quiz, provide source and number of questions you want.</li>
             <li>Good luck on taking your AI quizzes!</li>
         </ol>
 
