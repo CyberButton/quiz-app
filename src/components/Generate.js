@@ -216,7 +216,7 @@ const optionStyle = {
       </div>
     
       <form id="form">
-        <input ref={prompt} className="userid" type="text" placeholder="Source to make quiestions go here*" />
+        <input ref={prompt} className="userid" type="text" placeholder={(sourceType === 'key words' ? "write key words to generate quiz for*" : "copy & paste text you'd like to genrate quiz for*")} />
       </form>
 
       <div className="start">
