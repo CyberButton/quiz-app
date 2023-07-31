@@ -219,7 +219,7 @@ const optionStyle = {
         <input ref={prompt} className="userid" type="text" placeholder={(sourceType === 'key words' ? "write key words to generate quiz for*" : "copy & paste text you'd like to genrate quiz for*")} />
       </form>
 
-      <div className="start">
+      <div className="start container-pohuy">
         <button className="btn" onClick={startQuiz}>
           Generate Quiz
         </button>

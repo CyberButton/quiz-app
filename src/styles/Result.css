@@ -27,7 +27,9 @@
 }
 
 table {
-    width: 100%;
+    width: 80vw;
+    position: absolute;
+    left: 0;
 }
 
 .table-header {
@@ -52,7 +54,11 @@ table {
 
 .btn {
     display: block;
-    margin-left: 100px; /* Add margin between buttons (adjust as needed) */
-    margin-right: 100px; /* Add margin between buttons (adjust as needed) */
 }
+
+/* margin-left: 100px; 
+margin-right: 100px;  */
   
+/* .start .btn > a {
+    text-decoration: none;
+} */

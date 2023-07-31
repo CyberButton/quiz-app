@@ -69,6 +69,7 @@ body, html{
     font-size: 1.2em;
 }
 
+
 .container .btn:hover{
     cursor: pointer;
     background-color: #f0f0f0;
@@ -91,7 +92,6 @@ ul li{
   position: relative;
   float: left;
   width: 100%;
-  height: 100px;
 	border-bottom: 1px solid #333;
 }
 
@@ -105,9 +105,8 @@ ul li label{
   position: relative;
   font-weight: 300;
   font-size: 1.35em;
-  padding: 25px 25px 25px 80px;
+  padding: 17px 0px 25px 80px;
   margin: 10px auto;
-  height: 30px;
   z-index: 9;
   cursor: pointer;
   -webkit-transition: all 0.25s linear;
@@ -169,4 +168,21 @@ input[type=radio]:checked ~ .text-primary{
 
 .checked::before{
   background: var(--primary-color)
+}
+
+.btn > a {
+  text-decoration: none;
+}
+
+.container > .container-pohuy {
+  display: flex;
+  justify-content: center;
+}
+
+#root > .container > .start {
+  justify-content: center;
+}
+
+#root > .container > .container-pohuy-2 {
+  justify-content: space-between;
 }

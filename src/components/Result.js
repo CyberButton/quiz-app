@@ -129,7 +129,7 @@ export default function Result() {
                 <span className='bold'>{userId}</span>
             </div>
             <div className='flex'>
-                <span>Number of Qusetions</span>
+                <span>Number of Questions</span>
                 <span className='bold'>{totalPoints || 0}</span>
             </div>
             <div className='flex'>
@@ -146,9 +146,8 @@ export default function Result() {
             </div>
         </div>
 
-        <div className="start">
-            <Link className='btn' to={'/'} onClick={onRestart}>Restart</Link>
-
+        <div className="start container-pohuy-2">
+            <button className='btn'><Link to={'/'}>Restart</Link></button>
             {/* Use PDFDownloadLink to download the PDF */}
             <button className='btn'>
             <PDFDownloadLink document={<PdfDocument />} fileName="AIquiz.pdf">

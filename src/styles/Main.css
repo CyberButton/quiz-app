@@ -1,3 +1,4 @@
+
 .container ol li{
     font-size: 1.4em;
     color: #cecece;
@@ -5,7 +6,7 @@
 
 .start{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     padding-top: 2em;
 }
 
@@ -31,4 +32,18 @@
     border: none;
     border-radius: 3px;
     font-size: 1em;
+}
+
+
+@media (max-width: 857px) {
+    .container {
+        max-width: 80vw;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 550px) {
+    .container {
+        font-size: 11.5px;
+    }
 }
