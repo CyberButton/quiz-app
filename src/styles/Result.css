@@ -27,7 +27,7 @@
 }
 
 table {
-    width: 80vw;
+    width: 95%;
     position: absolute;
     left: 0;
 }
@@ -62,3 +62,11 @@ margin-right: 100px;  */
 /* .start .btn > a {
     text-decoration: none;
 } */
+
+@media (max-width: 830px) {
+    table {
+        width: 80vw;
+        position: absolute;
+        left: 0;
+    }
+}
