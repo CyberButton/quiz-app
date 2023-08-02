@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
 
 export default function ResultTable() {
   
@@ -8,7 +10,9 @@ export default function ResultTable() {
     // correct answers
     const answers = useSelector(state => state.questions.answers)
 
-    console.log(questions)
+    const { t } = useTranslation();
+
+    //console.log(questions)
 
     // useEffect(() => {
     //   const delay = setTimeout(() => {
@@ -27,9 +31,9 @@ export default function ResultTable() {
         <table>
             <thead className='table-header'>
                 <tr className='table-row'>
-                    <td>Questions</td>
-                    <td>Correct Answers</td>
-                    <td>Submitted Answers</td>
+                    <td>{t("questions")}</td>
+                    <td>{t("correct answers")}</td>
+                    <td>{t("submitted answers")}</td>
                 </tr>
             </thead>
             <tbody>

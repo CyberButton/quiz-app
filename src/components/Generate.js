@@ -4,8 +4,13 @@ import '../styles/Main.css';
 import { CallGenerativeAPI } from '../hooks/generateQuestions';
 import { useSelector, useDispatch } from 'react-redux';
 
-import FROM_TEXT_end from '../images/FROM_TEXT_eng.png'
-import FROM_KEY_WORDS_eng from '../images/FROM_KEY_WORDS_eng.png'
+import FROM_TEXT_en from '../images/FROM_TEXT_en.png'
+import FROM_KEY_WORDS_en from '../images/FROM_KEY_WORDS_en.png'
+import FROM_TEXT_ru from '../images/FROM_TEXT_ru.png'
+import FROM_KEY_WORDS_ru from '../images/FROM_KEY_WORDS_ru.png'
+
+import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
 
 export default function Generate() {
   const userId = useSelector(state => state.result.userId);
@@ -18,6 +23,15 @@ export default function Generate() {
 
   const [go, setGo] = useState(false);
   const [loading, setLoading] = useState(false); // New state for the loading screen
+
+  const { t } = useTranslation();
+
+  let imageSrc;
+    if (sourceType === 'key words') {
+      imageSrc = i18next.language === 'en' ? FROM_KEY_WORDS_en : FROM_KEY_WORDS_ru;
+    } else if (sourceType === 'full text') {
+      imageSrc = i18next.language === 'en' ? FROM_TEXT_en : FROM_TEXT_ru;
+    }
 
   const startQuiz = async () => {
     console.log('start quiz 1');
@@ -38,6 +52,7 @@ export default function Generate() {
         sourceType: sourceType,
         userID: userId,
         nameOfMCQ: nameOfMCQ.current.value,
+        lang: i18next.language
       };
 
       console.log('start quiz 2');
@@ -71,12 +86,12 @@ export default function Generate() {
     boxShadow: '0 2px 4px rgba(0, 0, 0, 1)',
   };
 
-const optionStyle = {
-  textAlign: 'center', // Align text to the most left
-  color: 'white',
-  marginLeft : '20px',
-  marginTop : '25px'
-}
+  const optionStyle = {
+    textAlign: 'center', // Align text to the most left
+    color: 'white',
+    marginLeft : '20px',
+    marginTop : '25px'
+  }
 
   const styles = {
     container: {
@@ -151,12 +166,12 @@ const optionStyle = {
           </style>
         </div>
       )}
-      <h1 className="title text-light">New AI Generated Quiz</h1>
+      <h1 className="title text-light">{t("new ai generated quiz")}</h1>
 
-      <h2 style={headerStyle}>Provide data for AI to generate a new quiz</h2>
+      <h2 style={headerStyle}>{t("provide data for ai")}</h2>
 
       <form id="form">
-        <input ref={nameOfMCQ} className="userid" type="text" placeholder="Name your quiz*" />
+        <input ref={nameOfMCQ} className="userid" type="text" placeholder={t("name your quiz")} />
       </form>
 
       {/* <form id="form">
@@ -164,19 +179,19 @@ const optionStyle = {
       </form> */}
 
       <div style={styles.container}>
-        <label style={styles.label}>How many questions do you want?</label>
+        <label style={styles.label}>{t("how many questions?")}</label>
         <select value={selectedNumber} onChange={handleDropdownChange} style={styles.select}>
-          <option value="">Choose a number</option>
+          <option value="">{t("choose a number")}</option>
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="15">15</option>
         </select>
-        {selectedNumber && <p style={styles.selected}>You selected: {selectedNumber}</p>}
+        {selectedNumber && <p style={styles.selected}>{"you selected"} {selectedNumber}</p>}
       </div>
 
     {/* Switch for Source Type */}
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <label style={styles.label}>Source type:</label>
+      <label style={styles.label}>{t("source type")}:</label>
       <label style={optionStyle}>
         <input
           type="radio"
@@ -185,7 +200,7 @@ const optionStyle = {
           onChange={(e) => setSourceType(e.target.value)}
           checked={sourceType === 'key words'}
         />{' '}
-        Key words
+        {t("key words")}
       </label>
       <label style={optionStyle}>
         <input
@@ -195,7 +210,7 @@ const optionStyle = {
           onChange={(e) => setSourceType(e.target.value)}
           checked={sourceType === 'full text'}
         />{' '}
-        Full text
+        {t("full text")}
       </label>
     </div>
 
@@ -204,24 +219,24 @@ const optionStyle = {
         {/* Display the Key Words image if 'key words' is selected */}
         {sourceType === 'key words' && (
           <div style={{ maxWidth: '70vw', maxHeight: '70vh' }}>
-            <img src={FROM_KEY_WORDS_eng} alt="Key Words Example" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            <img src={imageSrc} alt="Key Words Example" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
           </div>
         )}
         {/* Display the Full Text image if 'full text' is selected */}
         {sourceType === 'full text' && (
           <div style={{ maxWidth: '70vw', maxHeight: '70vh' }}>
-            <img src={FROM_TEXT_end} alt="Full Text Example" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            <img src={imageSrc} alt="Full Text Example" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
           </div>
         )}
       </div>
     
       <form id="form">
-        <input ref={prompt} className="userid" type="text" placeholder={(sourceType === 'key words' ? "write key words to generate quiz for*" : "copy & paste text you'd like to genrate quiz for*")} />
+        <input ref={prompt} className="userid" type="text" placeholder={(sourceType === 'key words' ? t("write key words") : t("copy & paste"))} />
       </form>
 
       <div className="start container-pohuy">
         <button className="btn" onClick={startQuiz}>
-          Generate Quiz
+          {t("generate quiz")}
         </button>
       </div>
     </div>

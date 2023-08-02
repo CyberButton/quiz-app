@@ -7,6 +7,7 @@ import { deleteQuestion } from '../hooks/deleteQuestions'
 import { resetAllAction } from '../redux/question_reducer';
 import { resetResultActionExceptName } from '../redux/result_reducer'
 import { resetIDOFMCQ } from '../redux/temp_reducer'
+import { useTranslation } from 'react-i18next'
 
 
 export default function Select() {
@@ -15,6 +16,7 @@ export default function Select() {
     const [serverData, setServerData] = useState([]);
     const dispatch = useDispatch();
     const userId = useSelector(state => state.result.userId)  
+    const { t } = useTranslation();
           
     const fetchData = async () => {
       try {
@@ -132,26 +134,26 @@ export default function Select() {
 
 return (
   <div className="container">
-    <h1 className='title text-light'>Select Quiz/Generate New Quiz</h1>
+    <h1 className='title text-light'>{t("select/generate quiz")}</h1>
 
 <div className='start'>
-    <button className='btn' onClick={onNewClick}>Generate New Quiz</button>
+    <button className='btn' onClick={onNewClick}>{t("generate quiz button")}</button>
 </div>
 
-<h2 style={headerStyle}>List of Questions</h2>
+<h2 style={headerStyle}>{t("list of questions")}</h2>
 
     <table>
     <thead className='table-header'>
     <tr className='table-row'>
-      <td>quiz name</td>
-      <td>number of questions</td>
-      <td>Delete</td>
+      <td>{t("quiz name")}</td>
+      <td>{t("number of questions")}</td>
+      <td>{t("delete")}</td>
     </tr>
   </thead>
       <tbody>
         {serverData.length === 0 ? (
           <tr className='table-body'>
-            <td colSpan="2">NO DATA FOUND</td>
+            <td colSpan="2">{t("no data")}</td>
           </tr>
         ) : (
           serverData
@@ -175,9 +177,5 @@ return (
     </table>
   </div>
 );
-
-
-
-
 
 }

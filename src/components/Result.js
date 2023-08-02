@@ -13,7 +13,10 @@ import { resetIDOFMCQ } from '../redux/temp_reducer'
 import { generatePDF } from '../hooks/generatePDFs';
 
 /**pdf */
-import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { PDFDownloadLink, Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
+
+import { useTranslation } from 'react-i18next';
+
 
 export default function Result() {
 
@@ -24,6 +27,8 @@ export default function Result() {
     const attempts = attempts_Number(result);
     const earnPoints = earnPoints_Number(result, answers, 1)
     const flag = flagResult(totalPoints, earnPoints)
+
+    const { t } = useTranslation();
 
     //useEffect(() => {
         // PublishResults({
@@ -43,6 +48,12 @@ export default function Result() {
         dispatch(resetIDOFMCQ())
     }
 
+    Font.register({
+      family: "Roboto",
+      src:
+        "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf"
+    });
+
     const styles = StyleSheet.create({
         page: {
           padding: 40,
@@ -51,6 +62,7 @@ export default function Result() {
           fontSize: 20,
           textAlign: 'center',
           marginBottom: 20,
+          fontFamily : "Roboto"
         },
         questionContainer: {
           marginBottom: 20,
@@ -59,10 +71,12 @@ export default function Result() {
           fontSize: 15,
           fontWeight: 'bold',
           marginBottom: 10,
+          fontFamily : "Roboto"
         },
         option: {
           fontSize: 12,
           marginBottom: 5,
+          fontFamily : "Roboto"
         },
         correctAnswersContainer: {
           marginTop: 40,
@@ -71,10 +85,12 @@ export default function Result() {
           fontSize: 16,
           fontWeight: 'bold',
           marginBottom: 10,
+          fontFamily : "Roboto"
         },
         correctAnswer: {
           fontSize: 12,
           marginBottom: 5,
+          fontFamily : "Roboto"
         },
       });
       
@@ -85,7 +101,7 @@ export default function Result() {
           <Document>
             <Page style={styles.page}>
               <View style={styles.header}>
-                <Text>{nameOfMCQ}</Text>
+                <Text >{nameOfMCQ}</Text>
               </View>
       
               {queue.map((question, index) => (
@@ -100,7 +116,7 @@ export default function Result() {
               ))}
       
               <View style={styles.correctAnswersContainer}>
-                <Text style={styles.correctAnswersTitle}>List of Correct Answers:</Text>
+                <Text style={styles.correctAnswersTitle}>{t("list of correct answers")}:</Text>
                 {queue.map((question, index) => (
                   <Text key={index} style={styles.correctAnswer}>
                     {`${index + 1}. ${optionLetters[answers[index]]}) ${question.options[answers[index]]}`}
@@ -121,41 +137,39 @@ export default function Result() {
 
   return (
     <div className='container'>
-        <h1 className='title text-light'>Quiz Results</h1>
+        <h1 className='title text-light'>{t("quiz results")}</h1>
 
         <div className='result flex-center'>
             <div className='flex'>
-                <span>Username</span>
+                <span>{t("username r")}</span>
                 <span className='bold'>{userId}</span>
             </div>
             <div className='flex'>
-                <span>Number of Questions</span>
+                <span>{t("number of questions r")}</span>
                 <span className='bold'>{totalPoints || 0}</span>
             </div>
             <div className='flex'>
-                <span>Attempted Questions</span>
+                <span>{t("attempted questions")}</span>
                 <span className='bold'>{attempts || 0}</span>
             </div>
             <div className='flex'>
-                <span>Correct Answers</span>
+                <span>{t("correct answers")}</span>
                 <span className='bold'>{earnPoints || 0}</span>
             </div>
             <div className='flex'>
-                <span>Quiz Result</span>
-                <span style={{ color : `${flag ? "#2aff95" : "#ff2a66" }` }} className='bold'>{flag ? "Passed" : "Failed"}</span>
+                <span>{t("quiz result")}</span>
+                <span style={{ color : `${flag ? "#2aff95" : "#ff2a66" }` }} className='bold'>{flag ? t("passed") : t("failed")}</span>
             </div>
         </div>
 
         <div className="start container-pohuy-2">
-            <button className='btn'><Link to={'/'}>Restart</Link></button>
+            <Link className='btn' to={'/'}>{t("restart")}</Link>
             {/* Use PDFDownloadLink to download the PDF */}
-            <button className='btn'>
-            <PDFDownloadLink document={<PdfDocument />} fileName="AIquiz.pdf">
+            <PDFDownloadLink className='btn' document={<PdfDocument />} fileName="AIquiz.pdf">
             {({ blob, url, loading, error }) =>
-                loading ? 'Loading document...' : 'Download PDF'
+                loading ? 'Loading document...' : t("download pdf")
             }
             </PDFDownloadLink>
-            </button>
         </div>
 
         <div className="container">
