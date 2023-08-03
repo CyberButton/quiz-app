@@ -163,9 +163,11 @@ export default function Result() {
         </div>
 
         <div className="start container-pohuy-2">
+            <div onClick={onRestart}>
             <Link className='btn' to={'/'}>{t("restart")}</Link>
+            </div>
             {/* Use PDFDownloadLink to download the PDF */}
-            <PDFDownloadLink className='btn' document={<PdfDocument />} fileName="AIquiz.pdf">
+            <PDFDownloadLink className='btn' document={<PdfDocument />} fileName={nameOfMCQ}>
             {({ blob, url, loading, error }) =>
                 loading ? 'Loading document...' : t("download pdf")
             }
