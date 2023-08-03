@@ -34,7 +34,7 @@ const router = createBrowserRouter([
   },
   {
     path : '/generate',
-    element : <CheckUserExist><Select /></ CheckUserExist>
+    element : <CheckUserExist><Generate /></ CheckUserExist>
     // element : <Generate />
 
   }
