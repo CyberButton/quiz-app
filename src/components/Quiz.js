@@ -8,6 +8,8 @@ import { PushAnswer } from '../hooks/setResult';
 import { useSelector, useDispatch } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 
+import { useTranslation } from 'react-i18next';
+
 // import { useLocation } from 'react-router-dom';
 
 export default function Quiz() {
@@ -21,6 +23,12 @@ export default function Quiz() {
     const nameOfMCQ = useSelector(state => state.result.nameOfMCQ);
     const { queue, trace } = useSelector(state => state.questions);
     const dispatch = useDispatch()
+
+    // Calculate the current question number
+    const currentQuestion = trace + 1;
+    const totalQuestions = queue.length;
+
+    const { t } = useTranslation();
 
     /** next button event handler */
     function onNext(){
@@ -59,6 +67,9 @@ export default function Quiz() {
   return (
     <div className='container'>
         <h1 className='title text-light'>{nameOfMCQ}</h1>
+
+        {/* Display the current question number */}
+        <p className='text-light'>{t("current question")} {currentQuestion}/{totalQuestions}</p>
 
         {/* display questions */}
         <Questions onChecked={onChecked}/>

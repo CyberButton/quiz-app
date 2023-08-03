@@ -42,5 +42,7 @@
     "questions" : "Questions",
     "submitted answers" : "Submitted Answers",
 
-    "list of correct answers" : "List of Correct Answers"
+    "list of correct answers" : "List of Correct Answers",
+    
+    "current question" : "Current question"
 }

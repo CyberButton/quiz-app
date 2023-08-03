@@ -42,5 +42,7 @@
     "questions" : "Вопросы",
     "submitted answers" : "Ваши ответы",
 
-    "list of correct answers" : "Список правильных ответов"
+    "list of correct answers" : "Список правильных ответов",
+
+    "current question" : "Текущий вопрос"
 }
