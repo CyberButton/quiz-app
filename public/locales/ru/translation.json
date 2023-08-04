@@ -44,5 +44,8 @@
 
     "list of correct answers" : "Список правильных ответов",
 
-    "current question" : "Текущий вопрос"
+    "current question" : "Текущий вопрос",
+
+    "next" : "Следующий",
+    "prev" : "Предыдущий"
 }

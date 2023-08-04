@@ -75,8 +75,8 @@ export default function Quiz() {
         <Questions onChecked={onChecked}/>
 
         <div className='grid'>
-            { trace > 0 ? <button className='btn prev' onClick={onPrev}>Prev</button> : <div></div>}
-            <button className='btn next' onClick={onNext}>Next</button>
+            { trace > 0 ? <button className='btn prev' onClick={onPrev}>{t("prev")}</button> : <div></div>}
+            <button className='btn next' onClick={onNext}>{t("next")}</button>
         </div>
     </div>
   )
