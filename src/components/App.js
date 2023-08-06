@@ -14,27 +14,27 @@ import Generate from './Generate';
 /** react routes */
 const router = createBrowserRouter([
   {
-    path : '/',
-    element : <Main></Main>
+    path: '/',
+    element: <Main></Main>
   },
   {
-    path : '/quiz',
-    element : <CheckUserExist><Quiz /></CheckUserExist>
+    path: '/quiz',
+    element: <CheckUserExist><Quiz /></CheckUserExist>
     //element : <Quiz />
   },
   {
-    path : '/result',
-    element : <CheckUserExist><Result /></CheckUserExist>
+    path: '/result',
+    element: <CheckUserExist><Result /></CheckUserExist>
     // element : <Result />
   },
   {
-    path : '/select',
-    element : <CheckUserExist><Select /></ CheckUserExist>
+    path: '/select',
+    element: <CheckUserExist><Select /></ CheckUserExist>
     // element : <Select />
   },
   {
-    path : '/generate',
-    element : <CheckUserExist><Generate /></ CheckUserExist>
+    path: '/generate',
+    element: <CheckUserExist><Generate /></ CheckUserExist>
     // element : <Generate />
 
   }

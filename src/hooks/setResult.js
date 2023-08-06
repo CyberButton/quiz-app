@@ -18,9 +18,9 @@ export const updateResult = (index) => async (dispatch) => {
 
 // to delete
 export const PublishResults = async (resultData) => {
-    const {result, username} = resultData;
+    const { result, username } = resultData;
     try {
-        if(result !== [] && !username) {
+        if (result !== [] && !username) {
             throw new Error("Couldnt get resluts")
         }
         await postServerData(`${process.env.REACT_APP_SERVER_HOSTNAME}/api/results`, resultData, data => data)

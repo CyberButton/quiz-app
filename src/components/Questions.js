@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-
-
 /** Custom Hook */
 import { useFetchQuestion } from '../hooks/FetchQuestion'
 import { updateResult } from '../hooks/setResult'
-
 
 export default function Questions({ onChecked }) {
 
@@ -15,51 +12,47 @@ export default function Questions({ onChecked }) {
     const result = useSelector(state => state.result.result);
     const [isLoading, setIsLoading] = useState(true);
     const [serverError, setServerError] = useState(null)
-    
+
     useFetchQuestion(isLoading, setIsLoading, serverError, setServerError)
 
     const questions = useSelector(state => state.questions.queue[state.questions.trace])
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(updateResult({ trace, checked}))
+        dispatch(updateResult({ trace, checked }))
     }, [trace, checked, dispatch])
-    
-    function onSelect(i){
+
+    function onSelect(i) {
         onChecked(i)
         setChecked(i)
-        dispatch(updateResult({ trace, checked}))
+        dispatch(updateResult({ trace, checked }))
     }
 
-    console.log(isLoading)
-    console.log(serverError)
+    if (isLoading) return <h3 className='text-light'>isLoading</h3>
+    if (serverError) return <h3 className='text-light'>{"Something went wrong while making your ai quiz, please RELOAD the page and try again"}</h3>
 
+    return (
+        <div className='questions'>
+            <h2 className='text-light'>{questions?.question}</h2>
 
-    if(isLoading) return <h3 className='text-light'>isLoading</h3>
-    if(serverError) return <h3 className='text-light'>{"Something went wrong while making your ai quiz, please RELOAD the page and try again"}</h3>
+            <ul key={questions?.id}>
+                {
+                    questions?.options.map((q, i) => (
+                        <li key={i}>
+                            <input
+                                type="radio"
+                                value={false}
+                                name="options"
+                                id={`q${i}-option`}
+                                onChange={() => onSelect(i)}
+                            />
 
-  return (
-    <div className='questions'>
-        <h2 className='text-light'>{questions?.question}</h2>
-
-        <ul key={questions?.id}>
-            {
-                questions?.options.map((q, i) => (
-                    <li key={i}>
-                        <input 
-                            type="radio"
-                            value={false}
-                            name="options"
-                            id={`q${i}-option`}
-                            onChange={() => onSelect(i)}
-                        />
-
-                        <label className='text-primary' htmlFor={`q${i}-option`}>{q}</label>
-                        <div className={`check ${result[trace] === i ? 'checked' : ''}`}></div>
-                    </li>
-                ))
-            }
-        </ul>
-    </div>
-  )
+                            <label className='text-primary' htmlFor={`q${i}-option`}>{q}</label>
+                            <div className={`check ${result[trace] === i ? 'checked' : ''}`}></div>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+    )
 }

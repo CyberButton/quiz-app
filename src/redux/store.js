@@ -6,10 +6,10 @@ import resultReducer from './result_reducer';
 import tempReducer from './temp_reducer';
 
 const rootReducer = combineReducers({
-    questions : questionReducer,
-    result : resultReducer,
-    temp : tempReducer
+    questions: questionReducer,
+    result: resultReducer,
+    temp: tempReducer
 })
 
 /** create store with reducer */
-export default configureStore({ reducer : rootReducer});
+export default configureStore({ reducer: rootReducer });

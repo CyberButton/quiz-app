@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 
 export default function Generate() {
-  
+
   const userId = useSelector(state => state.result.userId);
   const dispatch = useDispatch();
 
@@ -28,11 +28,11 @@ export default function Generate() {
   const { t } = useTranslation();
 
   let imageSrc;
-    if (sourceType === 'key words') {
-      imageSrc = i18next.language === 'en' ? FROM_KEY_WORDS_en : FROM_KEY_WORDS_ru;
-    } else if (sourceType === 'full text') {
-      imageSrc = i18next.language === 'en' ? FROM_TEXT_en : FROM_TEXT_ru;
-    }
+  if (sourceType === 'key words') {
+    imageSrc = i18next.language === 'en' ? FROM_KEY_WORDS_en : FROM_KEY_WORDS_ru;
+  } else if (sourceType === 'full text') {
+    imageSrc = i18next.language === 'en' ? FROM_TEXT_en : FROM_TEXT_ru;
+  }
 
   const startQuiz = async () => {
     console.log('start quiz 1');
@@ -42,10 +42,6 @@ export default function Generate() {
       nameOfMCQ.current?.value &&
       selectedNumber !== ''
     ) {
-      // const prompt = (prompt.current?.value)
-      // function needs { promt, numberOfMCQ, sourceType, userID, nameOfMCQ }
-
-      console.log(userId);
 
       const resultData = {
         prompt: prompt.current.value,
@@ -56,18 +52,12 @@ export default function Generate() {
         lang: i18next.language
       };
 
-      console.log('start quiz 2');
-
       // Show the loading screen
       setLoading(true);
 
       await CallGenerativeAPI(resultData, dispatch);
 
-      console.log('start quiz 3');
-
       setGo(true);
-
-      console.log('start quiz 4');
     }
   };
 
@@ -90,8 +80,8 @@ export default function Generate() {
   const optionStyle = {
     textAlign: 'center', // Align text to the most left
     color: 'white',
-    marginLeft : '20px',
-    marginTop : '25px'
+    marginLeft: '20px',
+    marginTop: '25px'
   }
 
   const styles = {
@@ -127,7 +117,7 @@ export default function Generate() {
 
   return (
     <div className="container">
-              {loading && (
+      {loading && (
         <div
           style={{
             position: 'fixed',
@@ -175,10 +165,6 @@ export default function Generate() {
         <input ref={nameOfMCQ} className="userid" type="text" placeholder={t("name your quiz")} />
       </form>
 
-      {/* <form id="form">
-        <input ref={sourceType} className="userid" type="text" placeholder="Source type*" />
-      </form> */}
-
       <div style={styles.container}>
         <label style={styles.label}>{t("how many questions?")}</label>
         <select value={selectedNumber} onChange={handleDropdownChange} style={styles.select}>
@@ -190,30 +176,30 @@ export default function Generate() {
         {selectedNumber && <p style={styles.selected}>{"you selected"} {selectedNumber}</p>}
       </div>
 
-    {/* Switch for Source Type */}
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <label style={styles.label}>{t("source type")}:</label>
-      <label style={optionStyle}>
-        <input
-          type="radio"
-          name="sourceType"
-          value="key words"
-          onChange={(e) => setSourceType(e.target.value)}
-          checked={sourceType === 'key words'}
-        />{' '}
-        {t("key words")}
-      </label>
-      <label style={optionStyle}>
-        <input
-          type="radio"
-          name="sourceType"
-          value="full text"
-          onChange={(e) => setSourceType(e.target.value)}
-          checked={sourceType === 'full text'}
-        />{' '}
-        {t("full text")}
-      </label>
-    </div>
+      {/* Switch for Source Type */}
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <label style={styles.label}>{t("source type")}:</label>
+        <label style={optionStyle}>
+          <input
+            type="radio"
+            name="sourceType"
+            value="key words"
+            onChange={(e) => setSourceType(e.target.value)}
+            checked={sourceType === 'key words'}
+          />{' '}
+          {t("key words")}
+        </label>
+        <label style={optionStyle}>
+          <input
+            type="radio"
+            name="sourceType"
+            value="full text"
+            onChange={(e) => setSourceType(e.target.value)}
+            checked={sourceType === 'full text'}
+          />{' '}
+          {t("full text")}
+        </label>
+      </div>
 
       {/* Images to illustrate each method */}
       <div style={{ display: 'flex' }}>
@@ -230,7 +216,7 @@ export default function Generate() {
           </div>
         )}
       </div>
-    
+
       <form id="form">
         <input ref={prompt} className="userid" type="text" placeholder={(sourceType === 'key words' ? t("write key words") : t("copy & paste"))} />
       </form>

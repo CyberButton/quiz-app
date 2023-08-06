@@ -10,12 +10,7 @@ import { Navigate } from 'react-router-dom'
 
 import { useTranslation } from 'react-i18next';
 
-// import { useLocation } from 'react-router-dom';
-
 export default function Quiz() {
-
-    // const location = useLocation();
-    // const selectedQuestions = location.state.selectedQuestions;
 
     const [check, setChecked] = useState(undefined)
 
@@ -31,53 +26,52 @@ export default function Quiz() {
     const { t } = useTranslation();
 
     /** next button event handler */
-    function onNext(){
-        if(trace < queue.length){
+    function onNext() {
+        if (trace < queue.length) {
             /** increase the trace value by one using MoveNextAction */
             dispatch(MoveNextQuestion());
 
             /** insert a new result in the array.  */
-            if(result.length <= trace){
+            if (result.length <= trace) {
                 dispatch(PushAnswer(check))
             }
         }
-     
+
         /** reset the value of the checked variable */
         setChecked(undefined)
     }
 
     /** Prev button event handler */
-    function onPrev(){
-        if(trace > 0){
+    function onPrev() {
+        if (trace > 0) {
             /** decrease the trace value by one using MovePrevQuestion */
             dispatch(MovePrevQuestion());
         }
     }
 
-    function onChecked(check){
-        console.log(check)
+    function onChecked(check) {
         setChecked(check)
     }
 
     /** finished exam after the last question */
-    if(result.length && result.length >= queue.length){
+    if (result.length && result.length >= queue.length) {
         return <Navigate to={'/result'} replace={true}></Navigate>
     }
 
-  return (
-    <div className='container'>
-        <h1 className='title text-light'>{nameOfMCQ}</h1>
+    return (
+        <div className='container'>
+            <h1 className='title text-light'>{nameOfMCQ}</h1>
 
-        {/* Display the current question number */}
-        <p className='text-light'>{t("current question")} {currentQuestion}/{totalQuestions}</p>
+            {/* Display the current question number */}
+            <p className='text-light'>{t("current question")} {currentQuestion}/{totalQuestions}</p>
 
-        {/* display questions */}
-        <Questions onChecked={onChecked}/>
+            {/* display questions */}
+            <Questions onChecked={onChecked} />
 
-        <div className='grid'>
-            { trace > 0 ? <button className='btn prev' onClick={onPrev}>{t("prev")}</button> : <div></div>}
-            <button className='btn next' onClick={onNext}>{t("next")}</button>
+            <div className='grid'>
+                {trace > 0 ? <button className='btn prev' onClick={onPrev}>{t("prev")}</button> : <div></div>}
+                <button className='btn next' onClick={onNext}>{t("next")}</button>
+            </div>
         </div>
-    </div>
-  )
+    )
 }

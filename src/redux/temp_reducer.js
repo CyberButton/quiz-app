@@ -3,18 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 /** create reducer */
 export const tempReducer = createSlice({
     name: 'temp',
-    initialState : {
-        IDOFMCQ : {}
+    initialState: {
+        IDOFMCQ: {}
     },
-    reducers : {
-        setIDOFMCQ : (state, action) => {
-            // console.log(action.payload)
+    reducers: {
+        setIDOFMCQ: (state, action) => {
             state.IDOFMCQ = action.payload
-            // console.log(state.IDOFMCQ)
         },
-        resetIDOFMCQ : () => {
+        resetIDOFMCQ: () => {
             return {
-                IDOFMCQ : {}
+                IDOFMCQ: {}
             }
         }
     }

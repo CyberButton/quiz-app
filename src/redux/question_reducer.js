@@ -3,37 +3,37 @@ import { createSlice } from "@reduxjs/toolkit";
 /** create reducer */
 export const questionReducer = createSlice({
     name: 'questions',
-    initialState : {
+    initialState: {
         queue: [],
-        answers : [],
-        trace : 0
+        answers: [],
+        trace: 0
     },
-    reducers : {
-        startExamAction : (state, action) => {
-            let { question, answers} = action.payload
+    reducers: {
+        startExamAction: (state, action) => {
+            let { question, answers } = action.payload
             return {
                 ...state,
-                queue : question,
+                queue: question,
                 answers
             }
         },
-        moveNextAction : (state) => {
+        moveNextAction: (state) => {
             return {
                 ...state,
-                trace : state.trace + 1
+                trace: state.trace + 1
             }
         },
-        movePrevAction : (state) => {
+        movePrevAction: (state) => {
             return {
                 ...state,
-                trace : state.trace - 1
+                trace: state.trace - 1
             }
         },
-        resetAllAction : () => {
+        resetAllAction: () => {
             return {
                 queue: [],
-                answers : [],
-                trace : 0
+                answers: [],
+                trace: 0
             }
         }
     }

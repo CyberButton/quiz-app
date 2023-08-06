@@ -49,7 +49,6 @@ export default function Main() {
 
             <div className='start container-pohuy'>
                 <Link className='btn' to={'select'} onClick={startQuiz}>{t("start button")}</Link>
-                {/* <button className='btn' onClick={startQuiz}><Link to={'select'}>{t("start button")}</Link></button> */}
             </div>
         </div>
     );
