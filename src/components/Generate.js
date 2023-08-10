@@ -19,7 +19,7 @@ export default function Generate() {
 
   const prompt = useRef(null);
   const [selectedNumber, setSelectedNumber] = useState('');
-  const [sourceType, setSourceType] = useState('key words'); // Default value is 'key words'
+  const [sourceType, setSourceType] = useState('full text'); // Default value is 'full text'
   const nameOfMCQ = useRef(null);
 
   const [go, setGo] = useState(false);
@@ -183,21 +183,21 @@ export default function Generate() {
           <input
             type="radio"
             name="sourceType"
-            value="key words"
-            onChange={(e) => setSourceType(e.target.value)}
-            checked={sourceType === 'key words'}
-          />{' '}
-          {t("key words")}
-        </label>
-        <label style={optionStyle}>
-          <input
-            type="radio"
-            name="sourceType"
             value="full text"
             onChange={(e) => setSourceType(e.target.value)}
             checked={sourceType === 'full text'}
           />{' '}
           {t("full text")}
+        </label>
+        <label style={optionStyle}>
+          <input
+            type="radio"
+            name="sourceType"
+            value="key words"
+            onChange={(e) => setSourceType(e.target.value)}
+            checked={sourceType === 'key words'}
+          />{' '}
+          {t("key words")}
         </label>
       </div>
 
